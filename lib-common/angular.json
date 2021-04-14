@@ -1,0 +1,45 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "common": {
+      "projectType": "library",
+      "root": "projects/common",
+      "sourceRoot": "projects/common/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/common/tsconfig.lib.json",
+            "project": "projects/common/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/common/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/common/**/*.ts",
+              "projects/common/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  },
+  "defaultProject": "common"
+}

@@ -1,4 +1,4 @@
-# Feature
+# Exportable-Features: Feature Module Lib
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
 
