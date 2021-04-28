@@ -1,0 +1,46 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "interceptor-inheritance": {
+      "projectType": "library",
+      "root": "projects/interceptor-inheritance",
+      "sourceRoot": "projects/interceptor-inheritance/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "projects/interceptor-inheritance/tsconfig.lib.json",
+            "project": "projects/interceptor-inheritance/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/interceptor-inheritance/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run",
+          "options": {
+            "tsConfig": "tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/interceptor-inheritance/**/*.ts",
+              "projects/interceptor-inheritance/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  },
+  "defaultProject": "interceptor-inheritance"
+}
