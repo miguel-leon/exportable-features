@@ -1,19 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { TitleService } from '@exportable-features/common';
+
 
 @Component({
 	selector: 'lib-feature',
-	template: `
-    <p>
-      feature works!
-    </p>
-  `,
-	styles: []
+	templateUrl: './feature.component.html'
 })
-export class FeatureComponent implements OnInit {
+export class FeatureComponent {
 
-	constructor() { }
+	constructor(private titleService: TitleService) {}
 
-	ngOnInit(): void {
-	}
-
+	title$ = this.titleService.getTitle();
 }

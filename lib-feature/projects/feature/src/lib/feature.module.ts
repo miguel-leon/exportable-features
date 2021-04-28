@@ -1,14 +1,29 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { HTTP_INTERCEPTORS, InterceptorInheritanceModule } from '@angular-utils/interceptor-inheritance';
 import { FeatureComponent } from './feature.component';
+import { FeatureInterceptor } from './feature.interceptor';
 
 
 @NgModule({
-	declarations: [
-		FeatureComponent
+	imports: [
+		CommonModule,
+		RouterModule.forChild([{
+			path: '',
+			component: FeatureComponent
+		}]),
+		InterceptorInheritanceModule
 	],
-	imports: [],
-	exports: [
+	providers: [{
+		provide: HTTP_INTERCEPTORS,
+		multi: true,
+		useClass: FeatureInterceptor
+	}],
+	declarations: [
 		FeatureComponent
 	]
 })
-export class FeatureModule {}
+export class FeatureModule {
+}
