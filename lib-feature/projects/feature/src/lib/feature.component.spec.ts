@@ -1,26 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { mocked } from 'ts-jest/utils';
+import { of } from 'rxjs';
 
 import { FeatureComponent } from './feature.component';
+import { TitleService } from '@exportable-features/common';
+
+jest.mock('@exportable-features/common');
 
 
 describe('FeatureComponent', () => {
-	let component: FeatureComponent;
-	let fixture: ComponentFixture<FeatureComponent>;
-
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [FeatureComponent]
-		})
-			.compileComponents();
+			providers: [
+				TitleService
+			],
+			declarations: [
+				FeatureComponent
+			]
+		}).compileComponents();
 	});
 
-	beforeEach(() => {
-		fixture = TestBed.createComponent(FeatureComponent);
-		component = fixture.componentInstance;
-		fixture.detectChanges();
-	});
 
 	it('should create', () => {
-		expect(component).toBeTruthy();
+		const fixture = TestBed.createComponent(FeatureComponent);
+		expect(fixture.componentInstance).toBeTruthy();
+	});
+
+
+	it(`should render feature title`, () => {
+		const titleService = mocked(TestBed.inject(TitleService));
+		titleService.getTitle.mockReturnValue(of('testing feature title'));
+
+		const fixture = TestBed.createComponent(FeatureComponent);
+		fixture.detectChanges();
+
+		const compiled = fixture.nativeElement;
+		expect(compiled.querySelector('h2').textContent).toContain('testing feature title');
 	});
 });
